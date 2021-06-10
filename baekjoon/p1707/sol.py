@@ -44,6 +44,7 @@ def BFS(node):
     else:
         return True
 
+sys.setrecursionlimit(10**6)
 num_of_test = sys.stdin.readline()
 #print("number of test case ",num_of_test)
 

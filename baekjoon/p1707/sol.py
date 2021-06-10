@@ -10,21 +10,42 @@
 4 2
 """
 
+def DFS(node):
+    # graph :  [[2], [1, 3, 4], [2, 4], [3, 2], []]
+    tmp_answer = True
+
+    #print("DFS node ",node + 1)
+    for n in range(graph[node].__len__()):
+        if(color[graph[node][n]-1]==0):
+            color[graph[node][n]-1]=color[node]*(-1)
+
+            if( DFS(graph[node][n]-1) == False) :
+                return False
+        else:
+            #print("compare coloe ",graph[node][n],color[graph[node][n]-1], color[node], node+1)
+            if color[graph[node][n]-1] == color[node]:
+                #print("Not binary")
+                return False
+
+    return True
+
+
 num_of_test = input()
 #print("number of test case ",num_of_test)
+
 
 for test in range(1, int(num_of_test) + 1):
     V,E = input().split()
 
     graph = list()
-    colored = list()
+    #colored = list()
     color = list()
     answer = True
 
     for i in range(1 + int(V)):
         graph.append(list())
-        colored.append(0)
-        color.append(1)
+        #colored.append(0)
+        color.append(0)
 
     #print("V, E ", V, E)
     for e in range(1, int(E) + 1):
@@ -37,27 +58,16 @@ for test in range(1, int(num_of_test) + 1):
         graph[v1-1].append(v2)
         graph[v2-1].append(v1)
 
-    # search
-    for v in range (graph.__len__()):
-        # visit each vertices
-        if colored[v] == 0 :
-            colored[v] = 1
-            #print("visit node ", v, graph[v].__len__())
-            # paint each connected node
-            for n in range(graph[v].__len__()):
-                #print("graph[v][n]", "n", n, "v", v)
-                if colored[graph[v][n]-1] == 0:
-                    colored[graph[v][n]-1] = 1
-                    color[graph[v][n]-1] = color[v] * (-1)
-        for n in range(graph[v].__len__()):
-            if color[graph[v][n]-1] == color[v]:
-                answer = False
+    #print("\ngraph : ", graph)
+    answer = True
+    #colored[0] = 1
+    color[0] = 1
 
-    if answer :
+    if DFS(0):
         print("YES")
     else:
         print("NO")
-    
+
 #print("colored : ", colored)
 #print("color : ", color)
 #print("graph : ", graph)
@@ -74,3 +84,4 @@ for test in range(1, int(num_of_test) + 1):
             answer = False
             break
         """
+

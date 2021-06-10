@@ -1,11 +1,10 @@
-# FAILED
+# Success
 import sys
 
 def DFS(node):
     # graph :  [[2], [1, 3, 4], [2, 4], [3, 2], []]
     tmp_answer = True
 
-    #print("DFS node ",node + 1)
     for n in range(graph[node].__len__()):
         if(color[graph[node][n]-1]==0):
             color[graph[node][n]-1]=color[node]*(-1)
@@ -13,15 +12,12 @@ def DFS(node):
             if( DFS(graph[node][n]-1) == False) :
                 return False
         else:
-            #print("compare coloe ",graph[node][n],color[graph[node][n]-1], color[node], node+1)
             if color[graph[node][n]-1] == color[node]:
-                #print("Not binary")
                 return False
 
     return True
 
 def BFS(node):
-    # graph :  [[2], [1, 3, 4], [2, 4], [3, 2], []]
     tmp_answer = True
     node_queue = list()
 
@@ -31,12 +27,8 @@ def BFS(node):
             node_queue.append(graph[node][n]-1)
 
         else:
-            #print("compare coloe ",graph[node][n],color[graph[node][n]-1], color[node], node+1)
             if color[graph[node][n]-1] == color[node]:
-                #print("Not binary")
                 return False
-
-    #print("\nqueue", node_queue)
 
     while node_queue:
         if(BFS(node_queue.pop()) == False):
@@ -45,13 +37,12 @@ def BFS(node):
         return True
 
 sys.setrecursionlimit(10**6)
-num_of_test = sys.stdin.readline()
-#print("number of test case ",num_of_test)
-
+num_of_test = sys.stdin.readline() # use sys.stdin.readline() instead of input() , because it is more fast
 
 for test in range(1, int(num_of_test) + 1):
     V,E = sys.stdin.readline().split()
 
+    # if test case has just one vertice and one edges
     if V==1 and E==1:
         v1, v2 = sys.stdin.readline().split()
         print("YES")
@@ -90,14 +81,12 @@ for test in range(1, int(num_of_test) + 1):
 
     que = list()
     que.append(0)
-    # print("push 0")
     color[0]=1
 
     answer = "YES"
 
     while que:
         node = que.pop()
-        # print("queue pop node",node)
 
         for n in range(graph[node].__len__()):
             if color[graph[node][n]-1] == 0 : # if next node was not yet visited
@@ -108,18 +97,17 @@ for test in range(1, int(num_of_test) + 1):
                 if color[graph[node][n]-1] == color[node] :
                     answer = "NO"
     
+        # if there is unconnected node remains
         if not que:
             try:
+                # set the node visited
                 ret = color.index(0)
+
+                # and push to que to BFS
                 que.append(ret)
                 color[ret]=1
-                #print("uncolored index", ret)
-                #sys.exit(0)
             except:
-                # print("there no uncolored")
                 break
 
-    # print(graph)
-    # print(color)
     print(answer)
 

@@ -7,7 +7,6 @@ using namespace std;
 
 list<int> node[SIZE];
 int visited[SIZE];
-queue<int> que;
 int color[SIZE];
 
 int DFS(int src, int dst);
@@ -47,8 +46,19 @@ int main(void)
         }
         else if (querry == 2)
         {
+            int ret;
             visited[0]=1;
-            cout << DFS(1,point) << "\n";
+
+            ret = DFS(1,point);
+
+            if(ret==0)
+            {
+                cout << "-1\n";
+            }
+            else
+            {
+                cout << ret << "\n";
+            }
         }
     }
 
@@ -67,13 +77,10 @@ int DFS(int src, int dst)
 {
     int ret;
 
-    // printf("DFS src %d dst %d\n",src,dst);
-
     for (auto v : node[src-1])
     {
         if(v == dst)
         {
-            // cout << "find dst " << v << "\n" ;
             if (color[src-1]==-1)
             {
                 return src;
@@ -89,12 +96,10 @@ int DFS(int src, int dst)
                     return 0;
                 }
             }
-
         }
 
         if(visited[v-1]==0)
         {
-            // std::cout << v << "\n";
             visited[v-1]=1;
 
             ret = DFS(v,dst);

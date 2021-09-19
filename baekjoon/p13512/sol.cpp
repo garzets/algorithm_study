@@ -11,10 +11,11 @@ int color[SIZE];
 
 int DFS(int src, int dst);
 void initialize(void);
+int N,M;
 
 int main(void)
 {
-    int N,M;
+
 
     cin >> N;
 
@@ -67,7 +68,7 @@ int main(void)
 
 void initialize(void)
 {
-    for (int i=0;i<SIZE;i++)
+    for (int i=0;i<N;i++)
     {
         visited[i]=0;
     }
